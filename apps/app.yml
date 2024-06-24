@@ -1,0 +1,42 @@
+appIdentifier: "@vibeiq/nike-extension-demo"  # Change to be your company root domain and the name of the app
+appName: "Nike Board Extensions" # Give your app a name
+appDescription: "Custom extensions that expose Nike specific features in boards." # Give your app a description
+visibility: public  # This should be private unless you want to develop an app for all VibeIQ customers to use
+hidden: false # can be used with a public app to prevent it from showing on the marketplace, but still installable by other orgs
+publisher: "vibeiq.com" # Your company name, used for public apps
+thumbnail: "https://media.designrush.com/inspiration_images/134805/conversions/_1512076803_93_Nike-desktop.jpg"
+version: "1.0.5"
+
+extensions:
+  - identifier: "nike-extensions-product-revenue"
+    name: "Nike: Product Revenue"
+    extensionType: DOCUMENT_AUTOMATION
+    userApps:
+      - BOARDS
+    modalDimensions:
+      width: 800px
+      height: 500px
+      maxWidth: 95vw
+    iframeUrl: "http://localhost:5500/sales-history"
+
+  - identifier: "nike-extensions-similar-products"
+    name: "Nike: Similar Products"
+    extensionType: DOCUMENT_AUTOMATION
+    userApps:
+      - BOARDS
+    modalDimensions:
+      width: 800px
+      height: 500px
+      maxWidth: 95vw
+    iframeUrl: "http://localhost:5500/similar-products"
+
+  - identifier: "nike-extensions-revenue-prediction"
+    name: "Nike: Revenue Prediction"
+    extensionType: DOCUMENT_AUTOMATION
+    userApps:
+      - BOARDS
+    modalDimensions:
+      width: 800px
+      height: 500px
+      maxWidth: 95vw
+    iframeUrl: "http://localhost:5500/revenue-prediction"         
