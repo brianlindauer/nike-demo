@@ -1,0 +1,30 @@
+@use "sass:map";
+@use '@angular/material' as mat;
+@include mat.core();
+
+// Color types with unspecified default hues will use these default hue values
+// var defaultDefaultHues = {
+//   'default': '500',
+//   'hue-1': '300',
+//   'hue-2': '800',
+//   'hue-3': 'A100'
+// };
+$vibeiq-theme-primary: mat.define-palette(mat.$blue-palette);
+$vibeiq-theme-accent: mat.define-palette(mat.$blue-palette, 700);
+$vibeiq-theme-warn: mat.define-palette(mat.$red-palette, 600);
+
+// create theme
+$vibeiq-main-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $vibeiq-theme-primary,
+      accent: $vibeiq-theme-accent,
+      warn: $vibeiq-theme-warn
+    ),
+  )
+);
+
+.main-theme { // <body class="main-theme"></body>
+  // use our theme with angular-material-theme mixin
+  @include mat.all-component-themes($vibeiq-main-theme);
+}

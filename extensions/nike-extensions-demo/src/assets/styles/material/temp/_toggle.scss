@@ -1,0 +1,32 @@
+@use 'sass:map';
+@use "@angular/material" as mat;
+
+@mixin _checked-color($palette, $thumb-checked-hue) {
+  &.mat-checked {
+    .mat-slide-toggle-thumb {
+      background-color: mat.get-color-from-palette($palette, $thumb-checked-hue);
+    }
+
+    .mat-slide-toggle-bar {
+      // Opacity is determined from the specs for the selection controls.
+      // See: https://material.io/design/components/selection-controls.html#specs
+      background-color: mat.get-color-from-palette($palette, $thumb-checked-hue, 0.54);
+    }
+
+    .mat-ripple-element {
+      // Set no opacity for the ripples because the ripple opacity will be adjusted dynamically
+      // based on the type of interaction with the slide-toggle (e.g. for hover, focus)
+      background-color: mat.get-color-from-palette($palette, $thumb-checked-hue);
+    }
+  }
+}
+
+@mixin color($config-or-theme, $variants) {
+  .mat-slide-toggle {
+    @each $variant, $variant-palette in $variants {
+      &.mat-#{$variant} {
+        @include _checked-color($variant-palette, default);
+      }
+    }
+  }
+}

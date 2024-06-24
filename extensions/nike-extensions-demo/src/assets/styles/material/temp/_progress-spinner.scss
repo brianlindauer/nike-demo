@@ -1,0 +1,14 @@
+@use 'sass:map';
+@use "@angular/material" as mat;
+
+@mixin color($config-or-theme, $variants) {
+  $config: mat.get-color-config($config-or-theme);
+
+  .mat-progress-spinner, .mat-spinner {
+    @each $variant, $variant-palette in $variants {
+      &.mat-#{$variant} circle {
+        stroke: mat.get-color-from-palette($variant-palette);
+      }
+    }
+  }
+}

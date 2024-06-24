@@ -1,0 +1,36 @@
+@use 'sass:map';
+@use 'sass:meta';
+@use 'sass:color';
+@use "@angular/material" as mat;
+
+// Approximates the correct buffer color by using a mix between the theme color
+// and the theme's background color.
+@function _get-buffer-color($theme, $background) {
+  $theme-color: mat.get-color-from-palette($theme);
+  // Return fallback color if the theme uses variables to define colors.
+  @if (meta.type-of($theme-color) != 'color' or meta.type-of($background) != 'color') {
+    @return mat.get-color-from-palette($theme, lighter);
+  }
+  @return color.mix($theme-color, $background, $weight: 25%);
+}
+
+@mixin color($config-or-theme, $variants) {
+  $config: mat.get-color-config($config-or-theme);
+  $background: map.get(map.get($config, background), background);
+
+  @each $variant, $variant-palette in $variants {
+    .mat-progress-bar.mat-#{$variant} {
+      .mat-progress-bar-background {
+        fill: _get-buffer-color($variant-palette, $background);
+      }
+
+      .mat-progress-bar-buffer {
+        background-color: _get-buffer-color($variant-palette, $background);
+      }
+
+      .mat-progress-bar-fill::after {
+        background-color: mat.get-color-from-palette($variant-palette);
+      }
+    }
+  }
+}

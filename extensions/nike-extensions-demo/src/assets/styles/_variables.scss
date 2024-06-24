@@ -1,0 +1,18 @@
+$primary: #2196F3;
+$accent: #1976d2;
+$grey: #9E9E9E;                         // gray-500
+$grey-dark: rgba(0, 0, 0, 0.24);
+$grey-light: rgba(0, 0, 0, 0.04);
+$bg-dark: #E8E8E8;
+$bg-light: #FAFAFA;                     // neutral-50
+$divider: #E5E5E5;                      // neutral-200 | main border color
+
+:root {
+  --amplify-primary-color: #1976d2;
+  --amplify-font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+amplify-authenticator {
+  --min-width: 30rem;
+  --container-height: 100%;
+}

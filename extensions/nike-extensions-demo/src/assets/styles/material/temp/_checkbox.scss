@@ -1,0 +1,23 @@
+@use 'sass:map';
+@use "sass:meta";
+@use "@angular/material" as mat;
+
+@mixin color($config-or-theme, $variants) {
+
+  .mat-checkbox-indeterminate, .mat-checkbox-checked {
+    @each $variant, $variant-palette in $variants {
+      &.mat-#{$variant} .mat-checkbox-background {
+        background-color: mat.get-color-from-palette($variant-palette);
+      }
+    }
+  }
+
+  .mat-checkbox-checked:not(.mat-checkbox-disabled),
+  .mat-checkbox:active:not(.mat-checkbox-disabled) {
+    @each $variant, $variant-palette in $variants {
+      &.mat-#{$variant} .mat-ripple-element {
+        background: mat.get-color-from-palette($variant-palette);
+      }
+    }
+  }
+}

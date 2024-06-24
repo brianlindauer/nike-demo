@@ -1,0 +1,37 @@
+@use 'sass:map';
+@use 'sass:meta';
+@use "@angular/material" as mat;
+
+@mixin _inner-content-theme($palette) {
+  .mat-slider-track-fill,
+  .mat-slider-thumb,
+  .mat-slider-thumb-label {
+    background-color: mat.get-color-from-palette($palette);
+  }
+
+  .mat-slider-thumb-label-text {
+    color: mat.get-color-from-palette($palette, default-contrast);
+  }
+
+  .mat-slider-focus-ring {
+    $opacity: 0.2;
+    $color: mat.get-color-from-palette($palette, default, $opacity);
+    background-color: $color;
+
+    // `mat-color` uses `rgba` for the opacity which won't work with
+    // CSS variables so we need to use `opacity` as a fallback.
+    @if (meta.type-of($color) != color) {
+      opacity: $opacity;
+    }
+  }
+}
+
+@mixin color($config-or-theme, $variants) {
+  .mat-slider {
+    @each $variant, $variant-palette in $variants {
+      &.mat-#{$variant} {
+        @include _inner-content-theme($variant-palette);
+      }
+    }
+  }
+}

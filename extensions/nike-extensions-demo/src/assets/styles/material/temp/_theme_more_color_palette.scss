@@ -1,0 +1,105 @@
+@use "sass:map";
+@use '@angular/material' as mat;
+@use "./button" as matButton;
+@use "./radio" as matRadio;
+@use "./checkbox" as matCheckbox;
+@use "./progress-bar" as matProgressBar;
+@use "./progress-spinner" as matProgressSpinner;
+@use "./toggle" as matToggle;
+@use "./slider" as matSlider;
+@include mat.core();
+
+$vibeiq-mat-success: mat.define-palette(mat.$green-palette);
+$vibeiq-mat-danger: mat.define-palette(mat.$red-palette);
+$vibeiq-mat-secondary: mat.define-palette(mat.$gray-palette);
+
+$vibeiq-color-variants: (
+  success: $vibeiq-mat-success,
+  danger: $vibeiq-mat-danger,
+  secondary: $vibeiq-mat-secondary
+);
+
+$vibeiq-mat-blue: (
+  50 : #e0f6ff,
+  100 : #b3e7ff,
+  200 : #80d8ff,
+  300 : #4dc8ff,
+  400 : #26bcff,
+  500 : #00b0ff,
+  600 : #00a9ff,
+  700 : #00a0ff,
+  800 : #0097ff,
+  900 : #0087ff,
+  A100 : #ffffff,
+  A200 : #f2f8ff,
+  A400 : #bfddff,
+  A700 : #a6d0ff,
+    contrast: (
+      50 : #000000,
+      100 : #000000,
+      200 : #000000,
+      300 : #000000,
+      400 : #000000,
+      500 : #000000,
+      600 : #000000,
+      700 : #ffffff,
+      800 : #ffffff,
+      900 : #ffffff,
+      A100 : #000000,
+      A200 : #000000,
+      A400 : #000000,
+      A700 : #000000,
+    )
+);
+
+// Color types with unspecified default hues will use these default hue values
+// var defaultDefaultHues = {
+//   'default': '500',
+//   'hue-1': '300',
+//   'hue-2': '800',
+//   'hue-3': 'A100'
+// };
+$vibeiq-theme-primary: mat.define-palette($vibeiq-mat-blue, 700, 300, 900);
+$vibeiq-theme-accent: mat.define-palette(mat.$light-blue-palette);
+$vibeiq-theme-warn: mat.define-palette(mat.$deep-orange-palette, A200, A100, A400);
+
+// create theme
+$vibeiq-main-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $vibeiq-theme-primary,
+      accent: $vibeiq-theme-accent,
+      warn: $vibeiq-theme-warn
+    ),
+  )
+);
+
+@each $variant, $variant-palette in $vibeiq-color-variants {
+  $vibeiq-main-theme: map.deep-merge(
+    $vibeiq-main-theme,
+    (
+      color: (
+        $variant: $variant-palette
+      )
+    )
+  );
+}
+
+// @each $variant, $variant-palette in $vibeiq-color-variants {
+//   .mat-#{$variant} {
+//     background-color: mat.get-color-from-palette($variant-palette);
+//     color: mat.get-color-from-palette($variant-palette);
+//   }
+// }
+
+.main-theme { // <body class="main-theme"></body>
+  // use our theme with angular-material-theme mixin
+  @include mat.all-component-themes($vibeiq-main-theme);
+  @include matButton.color($vibeiq-main-theme, $vibeiq-color-variants);
+  @include matCheckbox.color($vibeiq-main-theme, $vibeiq-color-variants);
+  @include matProgressBar.color($vibeiq-main-theme, $vibeiq-color-variants);
+  @include matProgressSpinner.color($vibeiq-main-theme, $vibeiq-color-variants);
+  @include matToggle.color($vibeiq-main-theme, $vibeiq-color-variants);
+  @include matSlider.color($vibeiq-main-theme, $vibeiq-color-variants);
+  // @include matRadio.color($vibeiq-main-theme, $vibeiq-color-variants);
+}
